@@ -7,6 +7,7 @@ package LNDict;
 
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import org.netbeans.microedition.lcdui.TableItem;
 
 /**
  * @author Le Van Long
@@ -18,7 +19,10 @@ public class MainForm extends MIDlet implements CommandListener {
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Form mainForm;
     private TextField textField;
+    private TextBox txtMean;
     private Command exitCommand;
+    private Command okCommand;
+    private Command backCommand;
     private Ticker ticker;
     //</editor-fold>//GEN-END:|fields|0|
 
@@ -94,14 +98,23 @@ public class MainForm extends MIDlet implements CommandListener {
         if (displayable == mainForm) {//GEN-BEGIN:|7-commandAction|1|18-preAction
             if (command == exitCommand) {//GEN-END:|7-commandAction|1|18-preAction
                 // write pre-action user code here
-                exitMIDlet();
-//GEN-LINE:|7-commandAction|2|18-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|2|18-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|7-postCommandAction
-        }//GEN-END:|7-commandAction|3|7-postCommandAction
+            } else if (command == okCommand) {//GEN-LINE:|7-commandAction|3|29-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getTxtMean());//GEN-LINE:|7-commandAction|4|29-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|31-preAction
+        } else if (displayable == txtMean) {
+            if (command == backCommand) {//GEN-END:|7-commandAction|5|31-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getMainForm());//GEN-LINE:|7-commandAction|6|31-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|7|7-postCommandAction
+        }//GEN-END:|7-commandAction|7|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|4|
-    //</editor-fold>//GEN-END:|7-commandAction|4|
+    }//GEN-BEGIN:|7-commandAction|8|
+    //</editor-fold>//GEN-END:|7-commandAction|8|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: mainForm ">//GEN-BEGIN:|14-getter|0|14-preInit
     /**
@@ -111,9 +124,10 @@ public class MainForm extends MIDlet implements CommandListener {
     public Form getMainForm() {
         if (mainForm == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            mainForm = new Form("LN Dictionary", new Item[] { getTextField() });//GEN-BEGIN:|14-getter|1|14-postInit
+            mainForm = new Form("LNDictionary", new Item[] { getTextField() });//GEN-BEGIN:|14-getter|1|14-postInit
             mainForm.setTicker(getTicker());
             mainForm.addCommand(getExitCommand());
+            mainForm.addCommand(getOkCommand());
             mainForm.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
@@ -129,7 +143,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public Command getExitCommand() {
         if (exitCommand == null) {//GEN-END:|17-getter|0|17-preInit
             // write pre-init user code here
-            exitCommand = new Command("Exit", Command.EXIT, 0);//GEN-LINE:|17-getter|1|17-postInit
+            exitCommand = new Command("Thoat", Command.EXIT, 0);//GEN-LINE:|17-getter|1|17-postInit
             // write post-init user code here
         }//GEN-BEGIN:|17-getter|2|
         return exitCommand;
@@ -159,12 +173,63 @@ public class MainForm extends MIDlet implements CommandListener {
     public Ticker getTicker() {
         if (ticker == null) {//GEN-END:|22-getter|0|22-preInit
             // write pre-init user code here
-            ticker = new Ticker("Chao mung ban den voi tu dien LNDict");//GEN-LINE:|22-getter|1|22-postInit
+            ticker = new Ticker("Chao mung ban den voi LNDictionary");//GEN-LINE:|22-getter|1|22-postInit
             // write post-init user code here
         }//GEN-BEGIN:|22-getter|2|
         return ticker;
     }
     //</editor-fold>//GEN-END:|22-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: txtMean ">//GEN-BEGIN:|27-getter|0|27-preInit
+    /**
+     * Returns an initiliazed instance of txtMean component.
+     * @return the initialized component instance
+     */
+    public TextBox getTxtMean() {
+        if (txtMean == null) {//GEN-END:|27-getter|0|27-preInit
+            // write pre-init user code here
+            txtMean = new TextBox("Nghia", null, 100, TextField.ANY);//GEN-BEGIN:|27-getter|1|27-postInit
+            txtMean.addCommand(getBackCommand());
+            txtMean.setCommandListener(this);//GEN-END:|27-getter|1|27-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|27-getter|2|
+        return txtMean;
+    }
+    //</editor-fold>//GEN-END:|27-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|28-getter|0|28-preInit
+    /**
+     * Returns an initiliazed instance of okCommand component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand() {
+        if (okCommand == null) {//GEN-END:|28-getter|0|28-preInit
+            // write pre-init user code here
+            okCommand = new Command("Tra cuu", Command.OK, 0);//GEN-LINE:|28-getter|1|28-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|28-getter|2|
+        return okCommand;
+    }
+    //</editor-fold>//GEN-END:|28-getter|2|
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand ">//GEN-BEGIN:|30-getter|0|30-preInit
+    /**
+     * Returns an initiliazed instance of backCommand component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand() {
+        if (backCommand == null) {//GEN-END:|30-getter|0|30-preInit
+            // write pre-init user code here
+            backCommand = new Command("Tro lai", Command.BACK, 0);//GEN-LINE:|30-getter|1|30-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|30-getter|2|
+        return backCommand;
+    }
+    //</editor-fold>//GEN-END:|30-getter|2|
+
+
 
 
 
