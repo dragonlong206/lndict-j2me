@@ -163,7 +163,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public Command getExitCommand() {
         if (exitCommand == null) {//GEN-END:|17-getter|0|17-preInit
             // write pre-init user code here
-            exitCommand = new Command("Thoat", Command.EXIT, 0);//GEN-LINE:|17-getter|1|17-postInit
+            exitCommand = new Command("Tho\u00E1t", Command.EXIT, 0);//GEN-LINE:|17-getter|1|17-postInit
             // write post-init user code here
         }//GEN-BEGIN:|17-getter|2|
         return exitCommand;
@@ -179,7 +179,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public TextField getTextFieldInput() {
         if (textFieldInput == null) {//GEN-END:|21-getter|0|21-preInit
             // write pre-init user code here
-            textFieldInput = new TextField("Input", null, 32, TextField.ANY);//GEN-LINE:|21-getter|1|21-postInit
+            textFieldInput = new TextField("T\u1EEB c\u1EA7n tra", null, 32, TextField.ANY);//GEN-LINE:|21-getter|1|21-postInit
             // write post-init user code here
         }//GEN-BEGIN:|21-getter|2|
         return textFieldInput;
@@ -194,7 +194,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public Ticker getTicker() {
         if (ticker == null) {//GEN-END:|22-getter|0|22-preInit
             // write pre-init user code here
-            ticker = new Ticker("Chao mung ban den voi LNDictionary");//GEN-LINE:|22-getter|1|22-postInit
+            ticker = new Ticker("Ch\u00E0o m\u1EEBng b\u1EA1n \u0111\u1EBFn v\u1EDBi LNDictionary");//GEN-LINE:|22-getter|1|22-postInit
             // write post-init user code here
         }//GEN-BEGIN:|22-getter|2|
         return ticker;
@@ -209,7 +209,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public TextBox getTxtMean() {
         if (txtMean == null) {//GEN-END:|27-getter|0|27-preInit
             // write pre-init user code here
-            txtMean = new TextBox("Nghia", null, 2000, TextField.ANY);//GEN-BEGIN:|27-getter|1|27-postInit
+            txtMean = new TextBox("Ngh\u0129a", null, 2000, TextField.ANY);//GEN-BEGIN:|27-getter|1|27-postInit
             txtMean.addCommand(getBackCommand());
             txtMean.setCommandListener(this);//GEN-END:|27-getter|1|27-postInit
             // write post-init user code here
@@ -227,7 +227,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public Command getSearchCommand() {
         if (searchCommand == null) {//GEN-END:|28-getter|0|28-preInit
             // write pre-init user code here
-            searchCommand = new Command("Tra cuu", Command.OK, 0);//GEN-LINE:|28-getter|1|28-postInit
+            searchCommand = new Command("Tra c\u1EE9u", Command.OK, 0);//GEN-LINE:|28-getter|1|28-postInit
             // write post-init user code here
         }//GEN-BEGIN:|28-getter|2|
         return searchCommand;
@@ -242,7 +242,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public Command getBackCommand() {
         if (backCommand == null) {//GEN-END:|30-getter|0|30-preInit
             // write pre-init user code here
-            backCommand = new Command("Tro lai", Command.BACK, 0);//GEN-LINE:|30-getter|1|30-postInit
+            backCommand = new Command("Tr\u1EDF l\u1EA1i", Command.BACK, 0);//GEN-LINE:|30-getter|1|30-postInit
             // write post-init user code here
         }//GEN-BEGIN:|30-getter|2|
         return backCommand;
@@ -384,12 +384,12 @@ public class MainForm extends MIDlet implements CommandListener {
                         }
                         catch (Exception ex)
                         {
-                            displayMessage(ex.getMessage(), "Loi");
+                            displayMessage(ex.getMessage(), "Lỗi");
                         }
                     }
                     else
                     {
-                        displayMessage("Khong tim thay tu can tra", "");
+                        displayMessage("Không tìm thấy từ cần tra", "");
 //-------------------------------------------------------------------------//
 //Bổ sung nghĩa chỗ này
 //-------------------------------------------------------------------------//
@@ -397,17 +397,17 @@ public class MainForm extends MIDlet implements CommandListener {
                 }
                 catch (Exception ex)
                 {
-                    displayMessage(ex.getMessage(), "Loi");
+                    displayMessage(ex.getMessage(), "Lỗi");
                 }
             }
             else
             {
-                displayMessage("Khong tim thay file " + fileName + ".index", "Loi du lieu");
+                displayMessage("Không tìm thấy tập tin " + fileName + ".index", "Lỗi dữ liệu");
             }
         }
         else
         {
-            displayMessage("Ban chua nhap tu can tra", "");
+            displayMessage("Bạn chưa nhập từ cần tra", "");
         }
 
         return result;
