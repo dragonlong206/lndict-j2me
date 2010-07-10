@@ -5,9 +5,12 @@
 
 package LNDict;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Vector;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
-import org.netbeans.microedition.lcdui.TableItem;
+//import javax.microedition.io.*;
 
 /**
  * @author Le Van Long
@@ -18,18 +21,22 @@ public class MainForm extends MIDlet implements CommandListener {
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Form mainForm;
-    private TextField textField;
+    private TextField textFieldInput;
     private TextBox txtMean;
+    private Alert alert;
     private Command exitCommand;
-    private Command okCommand;
+    private Command searchCommand;
     private Command backCommand;
+    private Command okCommand_Alert;
     private Ticker ticker;
     //</editor-fold>//GEN-END:|fields|0|
+    
+    //IndexElement[] index;
 
     /**
      * The MainForm constructor.
      */
-    public MainForm() {
+    public MainForm() {        
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
@@ -95,26 +102,39 @@ public class MainForm extends MIDlet implements CommandListener {
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == mainForm) {//GEN-BEGIN:|7-commandAction|1|18-preAction
-            if (command == exitCommand) {//GEN-END:|7-commandAction|1|18-preAction
+        if (displayable == alert) {//GEN-BEGIN:|7-commandAction|1|37-preAction
+            if (command == okCommand_Alert) {//GEN-END:|7-commandAction|1|37-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|2|18-postAction
+                switchDisplayable(null, getMainForm());//GEN-LINE:|7-commandAction|2|37-postAction
                 // write post-action user code here
-            } else if (command == okCommand) {//GEN-LINE:|7-commandAction|3|29-preAction
+            }//GEN-BEGIN:|7-commandAction|3|18-preAction
+        } else if (displayable == mainForm) {
+            if (command == exitCommand) {//GEN-END:|7-commandAction|3|18-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getTxtMean());//GEN-LINE:|7-commandAction|4|29-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|4|18-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|31-preAction
+            } else if (command == searchCommand) {//GEN-LINE:|7-commandAction|5|29-preAction
+                // write pre-action user code here
+                String meaning = getMeaning();
+                if (meaning.compareTo("") != 0)
+                {
+                    switchDisplayable(null, getTxtMean());
+                    txtMean.setString(meaning);
+                }
+//GEN-LINE:|7-commandAction|6|29-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|7|31-preAction
         } else if (displayable == txtMean) {
-            if (command == backCommand) {//GEN-END:|7-commandAction|5|31-preAction
+            if (command == backCommand) {//GEN-END:|7-commandAction|7|31-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMainForm());//GEN-LINE:|7-commandAction|6|31-postAction
+                switchDisplayable(null, getMainForm());//GEN-LINE:|7-commandAction|8|31-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|7|7-postCommandAction
-        }//GEN-END:|7-commandAction|7|7-postCommandAction
+                txtMean.setString("");
+            }//GEN-BEGIN:|7-commandAction|9|7-postCommandAction
+        }//GEN-END:|7-commandAction|9|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|8|
-    //</editor-fold>//GEN-END:|7-commandAction|8|
+    }//GEN-BEGIN:|7-commandAction|10|
+    //</editor-fold>//GEN-END:|7-commandAction|10|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: mainForm ">//GEN-BEGIN:|14-getter|0|14-preInit
     /**
@@ -124,10 +144,10 @@ public class MainForm extends MIDlet implements CommandListener {
     public Form getMainForm() {
         if (mainForm == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            mainForm = new Form("LNDictionary", new Item[] { getTextField() });//GEN-BEGIN:|14-getter|1|14-postInit
+            mainForm = new Form("LNDictionary", new Item[] { getTextFieldInput() });//GEN-BEGIN:|14-getter|1|14-postInit
             mainForm.setTicker(getTicker());
             mainForm.addCommand(getExitCommand());
-            mainForm.addCommand(getOkCommand());
+            mainForm.addCommand(getSearchCommand());
             mainForm.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
@@ -149,19 +169,20 @@ public class MainForm extends MIDlet implements CommandListener {
         return exitCommand;
     }
     //</editor-fold>//GEN-END:|17-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField ">//GEN-BEGIN:|21-getter|0|21-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textFieldInput ">//GEN-BEGIN:|21-getter|0|21-preInit
     /**
-     * Returns an initiliazed instance of textField component.
+     * Returns an initiliazed instance of textFieldInput component.
      * @return the initialized component instance
      */
-    public TextField getTextField() {
-        if (textField == null) {//GEN-END:|21-getter|0|21-preInit
+    public TextField getTextFieldInput() {
+        if (textFieldInput == null) {//GEN-END:|21-getter|0|21-preInit
             // write pre-init user code here
-            textField = new TextField("Input", null, 32, TextField.ANY);//GEN-LINE:|21-getter|1|21-postInit
+            textFieldInput = new TextField("Input", null, 32, TextField.ANY);//GEN-LINE:|21-getter|1|21-postInit
             // write post-init user code here
         }//GEN-BEGIN:|21-getter|2|
-        return textField;
+        return textFieldInput;
     }
     //</editor-fold>//GEN-END:|21-getter|2|
 
@@ -188,7 +209,7 @@ public class MainForm extends MIDlet implements CommandListener {
     public TextBox getTxtMean() {
         if (txtMean == null) {//GEN-END:|27-getter|0|27-preInit
             // write pre-init user code here
-            txtMean = new TextBox("Nghia", null, 100, TextField.ANY);//GEN-BEGIN:|27-getter|1|27-postInit
+            txtMean = new TextBox("Nghia", null, 2000, TextField.ANY);//GEN-BEGIN:|27-getter|1|27-postInit
             txtMean.addCommand(getBackCommand());
             txtMean.setCommandListener(this);//GEN-END:|27-getter|1|27-postInit
             // write post-init user code here
@@ -196,23 +217,22 @@ public class MainForm extends MIDlet implements CommandListener {
         return txtMean;
     }
     //</editor-fold>//GEN-END:|27-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|28-getter|0|28-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: searchCommand ">//GEN-BEGIN:|28-getter|0|28-preInit
     /**
-     * Returns an initiliazed instance of okCommand component.
+     * Returns an initiliazed instance of searchCommand component.
      * @return the initialized component instance
      */
-    public Command getOkCommand() {
-        if (okCommand == null) {//GEN-END:|28-getter|0|28-preInit
+    public Command getSearchCommand() {
+        if (searchCommand == null) {//GEN-END:|28-getter|0|28-preInit
             // write pre-init user code here
-            okCommand = new Command("Tra cuu", Command.OK, 0);//GEN-LINE:|28-getter|1|28-postInit
+            searchCommand = new Command("Tra cuu", Command.OK, 0);//GEN-LINE:|28-getter|1|28-postInit
             // write post-init user code here
         }//GEN-BEGIN:|28-getter|2|
-        return okCommand;
+        return searchCommand;
     }
     //</editor-fold>//GEN-END:|28-getter|2|
-
-
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand ">//GEN-BEGIN:|30-getter|0|30-preInit
     /**
@@ -229,9 +249,38 @@ public class MainForm extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|30-getter|2|
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: alert ">//GEN-BEGIN:|35-getter|0|35-preInit
+    /**
+     * Returns an initiliazed instance of alert component.
+     * @return the initialized component instance
+     */
+    public Alert getAlert() {
+        if (alert == null) {//GEN-END:|35-getter|0|35-preInit
+            // write pre-init user code here
+            alert = new Alert("Error");//GEN-BEGIN:|35-getter|1|35-postInit
+            alert.addCommand(getOkCommand_Alert());
+            alert.setCommandListener(this);
+            alert.setTimeout(Alert.FOREVER);//GEN-END:|35-getter|1|35-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|35-getter|2|
+        return alert;
+    }
+    //</editor-fold>//GEN-END:|35-getter|2|
 
-
-
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand_Alert ">//GEN-BEGIN:|36-getter|0|36-preInit
+    /**
+     * Returns an initiliazed instance of okCommand_Alert component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand_Alert() {
+        if (okCommand_Alert == null) {//GEN-END:|36-getter|0|36-preInit
+            // write pre-init user code here
+            okCommand_Alert = new Command("Ok", Command.OK, 0);//GEN-LINE:|36-getter|1|36-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|36-getter|2|
+        return okCommand_Alert;
+    }
+    //</editor-fold>//GEN-END:|36-getter|2|
 
     /**
      * Returns a display instance.
@@ -278,4 +327,89 @@ public class MainForm extends MIDlet implements CommandListener {
     public void destroyApp(boolean unconditional) {
     }
 
+    // Cài đặt hàm để hiển thị các thông báo
+    public void displayMessage(String message, String title)
+    {
+        switchDisplayable(null, getAlert());
+        if (message != null)
+        {
+            alert.setString(message);
+        }
+
+        if (title != null)
+        {
+            alert.setTitle(title);
+        }
+    }
+
+    public String getMeaning()
+    {
+        String result = "";
+        String word = this.textFieldInput.getString();
+        word = word.toLowerCase();
+        if (word.length() > 0)
+        {
+            char firstChar = word.charAt(0);
+            String fileName = "";
+            if (Character.isDigit(firstChar))
+            {
+                fileName = "av_0";
+            }
+            else
+            {
+                fileName = "av_" + firstChar;
+            }
+
+            InputStream indexStream = this.getClass().getResourceAsStream(fileName + ".index");
+            if (indexStream != null)
+            {
+                try
+                {
+                    Vector arrIndexes = Processor.readFromFile(indexStream);
+                    // Lấy vị trí từ cần tra và lấy nghĩa
+                    int index = Processor.binarySearch(word, arrIndexes);
+                    if (index != -1)
+                    {
+                        InputStream meaningStream = this.getClass().getResourceAsStream(fileName + ".meaning");
+                        try
+                        {
+                            int meaningPosition = ((IndexElement)arrIndexes.elementAt(index)).getPosition();
+                            int meaningLength = ((IndexElement)arrIndexes.elementAt(index)).getLength();
+                            result = Processor.readMeaningString(meaningStream, meaningPosition, meaningLength);
+
+                            // Hủy
+                            meaningStream.close();
+                            indexStream.close();
+                            arrIndexes.removeAllElements();
+                        }
+                        catch (Exception ex)
+                        {
+                            displayMessage(ex.getMessage(), "Loi");
+                        }
+                    }
+                    else
+                    {
+                        displayMessage("Khong tim thay tu can tra", "");
+//-------------------------------------------------------------------------//
+//Bổ sung nghĩa chỗ này
+//-------------------------------------------------------------------------//
+                    }
+                }
+                catch (Exception ex)
+                {
+                    displayMessage(ex.getMessage(), "Loi");
+                }
+            }
+            else
+            {
+                displayMessage("Khong tim thay file " + fileName + ".index", "Loi du lieu");
+            }
+        }
+        else
+        {
+            displayMessage("Ban chua nhap tu can tra", "");
+        }
+
+        return result;
+    }
 }
