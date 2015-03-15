@@ -1,0 +1,1 @@
+Ứng dụng từ điển Anh - Việt viết bằng ngôn ngữ Java cho thiết bị di động.
